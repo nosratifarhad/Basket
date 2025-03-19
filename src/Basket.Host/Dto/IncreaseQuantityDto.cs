@@ -2,7 +2,7 @@
 {
     public class IncreaseQuantityDto
     {
-        public int BasketItemId { get; set; }
+        public int UserBasketItemId { get; set; }
         public int UserId { get; set; }
     }
 }

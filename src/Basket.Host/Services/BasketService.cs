@@ -1,6 +1,6 @@
 ﻿using Basket.Host.Builder.Contracts;
 using Basket.Host.Domain.Basket;
-using Basket.Host.Domain.Basket.DomainModels;
+using Basket.Host.Domain.Basket.Entities;
 using Basket.Host.Dto;
 using Basket.Host.Services.Contracts;
 
@@ -38,7 +38,7 @@ namespace Basket.Host.Services
         public async Task DecreaseQuantity(DecreaseQuantityDto remoteBasketItemDto)
         {
             var userBasketItem =
-                await _basketReadRepository.GetUserBasketItem(remoteBasketItemDto.BasketItemId);
+                await _basketReadRepository.GetUserBasketItem(remoteBasketItemDto.UserBasketItemId);
             if (userBasketItem == null)
                 throw new Exception("User Basket Item Not Found.");
 
@@ -56,7 +56,7 @@ namespace Basket.Host.Services
         public async Task IncreaseQuantity(IncreaseQuantityDto increaseQuantityDto)
         {
             var userBasketItem =
-                    await _basketReadRepository.GetUserBasketItem(increaseQuantityDto.BasketItemId);
+                    await _basketReadRepository.GetUserBasketItem(increaseQuantityDto.UserBasketItemId);
             if (userBasketItem == null)
                 throw new Exception("User Basket Item Not Found.");
 

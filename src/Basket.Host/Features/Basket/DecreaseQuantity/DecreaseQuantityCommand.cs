@@ -2,7 +2,7 @@
 
 namespace Basket.Host.Features.Basket.RemoteBasketItem
 {
-    public record DecreaseQuantityCommand(int BasketItemId, int UserId)
+    public record DecreaseQuantityCommand(int UserBasketItemId, int UserId)
         : IRequest<Unit>
     {
     }

@@ -17,7 +17,7 @@ namespace Basket.Host.Features.Basket.RemoteBasketItem
         {
             var remoteBasketItemDto = new DecreaseQuantityDto()
             {
-                BasketItemId = request.BasketItemId,
+                UserBasketItemId = request.UserBasketItemId,
                 UserId = request.UserId,
             };
 

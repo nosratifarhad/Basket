@@ -1,8 +1,8 @@
 ﻿using Basket.Host.Domain.Basket;
 using Dapper;
 using System.Data;
-using Basket.Host.Domain.Basket.DomainModels;
 using System.Data.SqlClient;
+using Basket.Host.Domain.Basket.Entities;
 
 namespace Basket.Host.Repositories
 {
@@ -24,6 +24,16 @@ namespace Basket.Host.Repositories
         }
 
         public Task UpdateBasketItem(UserBasketItem basket)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateBaskets(List<UserBasket> baskets)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateBasketItems(List<UserBasketItem> userBasketItem)
         {
             throw new NotImplementedException();
         }

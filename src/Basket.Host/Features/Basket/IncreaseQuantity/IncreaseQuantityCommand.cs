@@ -2,7 +2,7 @@
 
 namespace Basket.Host.Features.Basket.IncreaseQuantity
 {
-    public record IncreaseQuantityCommand(int BasketItemId, int UserId)
+    public record IncreaseQuantityCommand(int UserBasketItemId, int UserId)
         : IRequest<Unit>
     {
     }
