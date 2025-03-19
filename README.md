@@ -41,6 +41,7 @@ GET /api/v1/baskets
 #### Response
 ```json
 {
+    "userBasketId": 1,
     "userId": 123,
     "amount": 100.00,
     "totalAmount": 120.00,
@@ -59,7 +60,7 @@ GET /api/v1/baskets
             "priceChanged": true
         },
         {
-            "userBasketId": 2,
+            "userBasketId": 1,
             "slug": "product-2",
             "productName": "Product 2",
             "price": 30.00,
