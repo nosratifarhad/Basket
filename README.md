@@ -34,7 +34,7 @@ The **Basket Service** is a microservice for managing shopping baskets in an e-c
 
 ## 📖 API Endpoints
 
-### ➕ Get Basket
+### 🧵 Get Basket
 ```http
 GET /api/v1/baskets
 ```
