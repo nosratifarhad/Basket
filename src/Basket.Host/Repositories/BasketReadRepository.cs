@@ -1,18 +1,13 @@
 ﻿using Basket.Host.Domain.Basket;
-using Dapper;
-using System.Data;
 using Basket.Host.Domain.Basket.DomainModels;
+using Dapper;
 using System.Data.SqlClient;
+using System.Data;
 
-namespace Basket.Host.Persistence.Repositories
+namespace Basket.Host.Repositories
 {
-    public class BasketRepository : IBasketRepository
+    public class BasketReadRepository : IBasketReadRepository
     {
-        public BasketRepository()
-        {
-            
-        }
-
         public async Task<UserBasket> GetUserBasket(int UserId)
         {
             string query = $@"select Id ,
@@ -38,32 +33,22 @@ namespace Basket.Host.Persistence.Repositories
             }
         }
 
-        public async Task<int> AddBasket(UserBasket basket)
+        public Task<UserBasketItem> GetUserBasketItem(int basketid, string Slug)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddUserBasketProductItem(UserBasketProductItem userBasketProductItem)
+        public Task<UserBasketItem> GetUserBasketItem(int BasketItemId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserBasketProductItem> GetUserBasketProductItem(int BasketId, string Slug)
+        public Task<UserBasketItem> GetUserBasketItem(string Slug)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserBasketProductItem> GetUserBasketProductItem(string Slug)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserBasketProductItem> UpadteUserBasketProductItem(string Slug, decimal Price, decimal LatestPrice, bool UserChangedSeen)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateBasket(UserBasket basket)
+        public Task<List<UserBasketItem>> GetUserBasketItems(string Slug)
         {
             throw new NotImplementedException();
         }

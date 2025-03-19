@@ -5,27 +5,34 @@ namespace Basket.Host.Subscription.PriceChanged
 {
     public class PriceChangedConsumer : IConsumer<PriceChangedEvent>
     {
-        private readonly IBasketRepository _basketRepository;
+        private readonly IBasketWriteRepository _basketWriteRepository;
+        private readonly IBasketReadRepository _basketReadRepository;
 
-        public PriceChangedConsumer(IBasketRepository basketRepository)
+        public PriceChangedConsumer(
+            IBasketWriteRepository basketRepository,
+            IBasketReadRepository basketReadRepository)
         {
-            _basketRepository = basketRepository;
+            _basketWriteRepository = basketRepository;
+            _basketReadRepository = basketReadRepository;
         }
 
         public async Task Consume(ConsumeContext<PriceChangedEvent> context)
         {
-            var userBasketProductItem = await _basketRepository.GetUserBasketProductItem(context.Message.Slug);
-            if (userBasketProductItem == null)
+            var userBasketItems = await _basketReadRepository.GetUserBasketItems(context.Message.Slug);
+            if (!userBasketItems.Any())
             {
-                Console.WriteLine("log : userBasketProductItem is null !");
+                Console.WriteLine("log : userBasketItem is null !");
                 return;
             }
 
-            await _basketRepository.UpadteUserBasketProductItem(
-                context.Message.Slug,
-                context.Message.Price,
-                context.Message.Price,
-                false);
+            foreach (var item in userBasketItems)
+            {
+                item.Price = context.Message.Price;
+                item.LatestPrice = context.Message.Price;
+                item.UserChangedSeen = false;
+            }
+
+            await _basketWriteRepository.UpdateBasketItems(userBasketItems);
         }
     }
 

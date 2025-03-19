@@ -1,8 +1,7 @@
 ﻿namespace Basket.Host.Domain.Basket.Entities
 {
-    public class Basket
+    public class Basket : BaseEntity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public decimal Amount { get; set; }
         public decimal TotalAmount { get; set; }

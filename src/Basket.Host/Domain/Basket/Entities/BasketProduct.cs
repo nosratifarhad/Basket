@@ -1,9 +1,7 @@
 ﻿namespace Basket.Host.Domain.Basket.Entities
 {
-    public class BasketProduct
+    public class BasketProduct : BaseEntity
     {
-        public int Id { get; set; }
-
         public string Slug { get; set; }
 
         public string ProductName { get; set; }

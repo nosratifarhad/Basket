@@ -7,6 +7,6 @@ namespace Basket.Host.Builder.Contracts
     {
         UserBasket WithOutExistingUserBasket(UserBasketDto userBasketDto);
         UserBasket WithExistingUserBasket(UserBasket userBasket, UserBasketDto userBasketDto);
-        void ConvertToUserBasketProductItem(UserBasketProductItem userBasketProductItem, UserBasketDto userBasketDto);
+        void ConvertToUserBasketItem(UserBasketItem userBasketItem, UserBasketDto userBasketDto);
     }
 }
