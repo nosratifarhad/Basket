@@ -1,5 +1,5 @@
 ﻿using Basket.Host.Builder.Contracts;
-using Basket.Host.Domain.Basket.DomainModels;
+using Basket.Host.Domain.Basket.Entities;
 using Basket.Host.Dto;
 
 namespace Basket.Host.Builder

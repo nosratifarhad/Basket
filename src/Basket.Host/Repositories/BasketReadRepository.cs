@@ -1,8 +1,8 @@
 ﻿using Basket.Host.Domain.Basket;
-using Basket.Host.Domain.Basket.DomainModels;
 using Dapper;
 using System.Data.SqlClient;
 using System.Data;
+using Basket.Host.Domain.Basket.Entities;
 
 namespace Basket.Host.Repositories
 {
@@ -49,6 +49,11 @@ namespace Basket.Host.Repositories
         }
 
         public Task<List<UserBasketItem>> GetUserBasketItems(string Slug)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<UserBasket>> GetUserBaskets(IEnumerable<int> UserBasketIds)
         {
             throw new NotImplementedException();
         }

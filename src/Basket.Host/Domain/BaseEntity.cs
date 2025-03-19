@@ -1,4 +1,4 @@
-﻿namespace Basket.Host.Domain.Basket
+﻿namespace Basket.Host.Domain
 {
     public abstract class BaseEntity
     {

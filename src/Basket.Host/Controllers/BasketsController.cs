@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.Host.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class BasketsController : ControllerBase
     {
@@ -15,7 +14,7 @@ namespace Basket.Host.Controllers
 
         public BasketsController(IMediator mediator) => _mediator = mediator;
 
-        [HttpPost(Name = "baskets")]
+        [HttpPost("api/v1/baskets")]
         public async Task<IActionResult> AddItemToBasket([FromBody] CreateBasketCommand command)
         {
             await _mediator.Send(command);
@@ -23,7 +22,7 @@ namespace Basket.Host.Controllers
             return Created();
         }
 
-        [HttpDelete(Name = "baskets")]
+        [HttpDelete("api/v1/baskets")]
         public async Task<IActionResult> RemoteBasket()
         {
             int userId = 123;//Get From Token
@@ -35,24 +34,24 @@ namespace Basket.Host.Controllers
             return Created();
         }
 
-        [HttpPut(Name = "baskets/{basketItemId}/decrease")]
-        public async Task<IActionResult> DecreaseQuantity(int basketItemId)
+        [HttpPut("api/v1/baskets/{userBasketItemId}/decrease")]
+        public async Task<IActionResult> DecreaseQuantity(int userBasketItemId)
         {
             int userId = 123;//Get From Token
 
-            var command = new DecreaseQuantityCommand(basketItemId, userId);
+            var command = new DecreaseQuantityCommand(userBasketItemId, userId);
 
             await _mediator.Send(command);
 
             return Created();
         }
 
-        [HttpPut(Name = "baskets/{basketItemId}/increase")]
-        public async Task<IActionResult> IncreaseQuantity(int basketItemId)
+        [HttpPut("api/v1/baskets/{userBasketItemId}/increase")]
+        public async Task<IActionResult> IncreaseQuantity(int userBasketItemId)
         {
             int userId = 123;//Get From Token
 
-            var command = new IncreaseQuantityCommand(basketItemId, userId);
+            var command = new IncreaseQuantityCommand(userBasketItemId, userId);
 
             await _mediator.Send(command);
 

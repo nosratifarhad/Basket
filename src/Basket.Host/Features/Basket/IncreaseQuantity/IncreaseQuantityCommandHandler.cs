@@ -17,7 +17,7 @@ namespace Basket.Host.Features.Basket.IncreaseQuantity
         {
             var increaseQuantityDto = new IncreaseQuantityDto()
             {
-                BasketItemId = request.BasketItemId,
+                UserBasketItemId = request.UserBasketItemId,
                 UserId = request.UserId,
             };
 

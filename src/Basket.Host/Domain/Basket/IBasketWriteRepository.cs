@@ -1,4 +1,4 @@
-﻿using Basket.Host.Domain.Basket.DomainModels;
+﻿using Basket.Host.Domain.Basket.Entities;
 
 namespace Basket.Host.Domain.Basket
 {
@@ -8,10 +8,12 @@ namespace Basket.Host.Domain.Basket
 
         Task UpdateBasket(UserBasket basket);
 
+        Task UpdateBaskets(List<UserBasket> baskets);
+
+        Task AddUserBasketItem(UserBasketItem userBasketItem);
+
         Task UpdateBasketItem(UserBasketItem userBasketItem);
 
         Task UpdateBasketItems(List<UserBasketItem> userBasketItem);
-
-        Task AddUserBasketItem(UserBasketItem userBasketItem);
     }
 }
