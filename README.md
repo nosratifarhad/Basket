@@ -34,6 +34,46 @@ The **Basket Service** is a microservice for managing shopping baskets in an e-c
 
 ## 📖 API Endpoints
 
+### ➕ Get Basket
+```http
+GET /api/v1/baskets
+```
+#### Response
+```json
+{
+    "userId": 123,
+    "amount": 100.00,
+    "totalAmount": 120.00,
+    "deliveryPrice": 10.00,
+    "vatAmount": 10.00,
+    "userBasketItems": [
+        {
+            "userBasketId": 1,
+            "slug": "product-1",
+            "productName": "Product 1",
+            "price": 50.00,
+            "latestPrice": 45.00,
+            "userChangedSeen": false,
+            "quantity": 2,
+            "discount": 5.00,
+            "priceChanged": true
+        },
+        {
+            "userBasketId": 2,
+            "slug": "product-2",
+            "productName": "Product 2",
+            "price": 30.00,
+            "latestPrice": null,
+            "userChangedSeen": true,
+            "quantity": 1,
+            "discount": null,
+            "priceChanged": false
+        }
+    ]
+}
+```
+**200 Ok**
+
 ### ➕ Add Item to Basket
 ```http
 POST /api/v1/baskets
