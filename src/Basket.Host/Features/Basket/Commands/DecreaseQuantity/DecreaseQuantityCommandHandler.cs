@@ -2,7 +2,7 @@
 using Basket.Host.Services.Contracts;
 using MediatR;
 
-namespace Basket.Host.Features.Basket.RemoteBasketItem
+namespace Basket.Host.Features.Basket.Commands.DecreaseQuantity
 {
     public class DecreaseQuantityCommandHandler : IRequestHandler<DecreaseQuantityCommand, Unit>
     {

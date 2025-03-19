@@ -2,7 +2,7 @@
 using Basket.Host.Dto;
 using Basket.Host.Services.Contracts;
 
-namespace Basket.Host.Features.Basket.CreateBasket
+namespace Basket.Host.Features.Basket.Commands.CreateBasket
 {
     public class CreateBasketCommandHandler : IRequestHandler<CreateBasketCommand, bool>
     {
@@ -15,7 +15,7 @@ namespace Basket.Host.Features.Basket.CreateBasket
 
         public async Task<bool> Handle(CreateBasketCommand request, CancellationToken cancellationToken)
         {
-            var userBasketDto = new UserBasketDto(request.Slug, request.ProductItemName, request.Price, request.UserId);
+            var userBasketDto = new CreateUserBasketDto(request.Slug, request.ProductItemName, request.Price, request.UserId);
 
             return await _basketService.CreateBasket(userBasketDto);
         }

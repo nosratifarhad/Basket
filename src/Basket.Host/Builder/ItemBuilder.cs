@@ -8,7 +8,7 @@ namespace Basket.Host.Builder
     {
         private const decimal VAT_PERCENTAGE = 0.09m;
 
-        public UserBasket WithOutExistingUserBasket(UserBasketDto userBasketDto)
+        public UserBasket WithOutExistingUserBasket(CreateUserBasketDto userBasketDto)
         {
             var userBasket = new UserBasket();
 
@@ -22,7 +22,7 @@ namespace Basket.Host.Builder
             return userBasket;
         }
 
-        public UserBasket WithExistingUserBasket(UserBasket userBasket, UserBasketDto userBasketDto)
+        public UserBasket WithExistingUserBasket(UserBasket userBasket, CreateUserBasketDto userBasketDto)
         {
             decimal amount = userBasket.Amount + userBasketDto.Price;
             userBasket.Amount = amount;
@@ -37,7 +37,7 @@ namespace Basket.Host.Builder
             return userBasket;
         }
 
-        public void ConvertToUserBasketItem(UserBasketItem userBasketItem, UserBasketDto userBasketDto)
+        public void ConvertToUserBasketItem(UserBasketItem userBasketItem, CreateUserBasketDto userBasketDto)
         {
             if (userBasketItem is null)
             {
