@@ -4,6 +4,7 @@ using Basket.Host.Features.Basket.RemoteBasket;
 using Basket.Host.Features.Basket.RemoteBasketItem;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Basket.Host.Controllers
 {
@@ -31,7 +32,7 @@ namespace Basket.Host.Controllers
 
             await _mediator.Send(command);
 
-            return Created();
+            return NoContent();
         }
 
         [HttpPut("api/v1/baskets/{userBasketItemId}/decrease")]
@@ -43,7 +44,7 @@ namespace Basket.Host.Controllers
 
             await _mediator.Send(command);
 
-            return Created();
+            return NoContent();
         }
 
         [HttpPut("api/v1/baskets/{userBasketItemId}/increase")]
@@ -55,7 +56,7 @@ namespace Basket.Host.Controllers
 
             await _mediator.Send(command);
 
-            return Created();
+            return NoContent();
         }
 
     }
