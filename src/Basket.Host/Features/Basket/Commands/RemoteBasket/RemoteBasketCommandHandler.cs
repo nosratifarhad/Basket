@@ -2,7 +2,7 @@
 using Basket.Host.Services.Contracts;
 using MediatR;
 
-namespace Basket.Host.Features.Basket.RemoteBasket
+namespace Basket.Host.Features.Basket.Commands.RemoteBasket
 {
     public class RemoteBasketCommandHandler : IRequestHandler<RemoteBasketCommand, Unit>
     {

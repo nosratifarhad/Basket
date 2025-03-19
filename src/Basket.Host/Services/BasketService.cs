@@ -22,7 +22,18 @@ namespace Basket.Host.Services
             _itemBuilder = itemBuilder;
         }
 
-        public async Task<bool> CreateBasket(UserBasketDto userBasketDto)
+        public async Task<UserBasketDto> GetBasket(int UserId)
+        {
+            var userBasket = await _basketReadRepository.GetUserBasket(UserId);
+            if (userBasket == null)
+                throw new Exception("User Basket Not Found.");
+
+            var userBasketDto = CreateUserBasketDto(userBasket);
+
+            return userBasketDto;
+        }
+
+        public async Task<bool> CreateBasket(CreateUserBasketDto userBasketDto)
         {
             //open tansaction
 
@@ -79,7 +90,7 @@ namespace Basket.Host.Services
 
         #region Private Methods
 
-        private async Task<UserBasket> CreateUserBasket(UserBasketDto userBasketDto)
+        private async Task<UserBasket> CreateUserBasket(CreateUserBasketDto userBasketDto)
         {
             var userBasket = await _basketReadRepository.GetUserBasket(userBasketDto.UserId);
 
@@ -101,13 +112,45 @@ namespace Basket.Host.Services
             return userBasket;
         }
 
-        private async Task CreateUserBasketItem(UserBasket userBasket, UserBasketDto userBasketDto)
+        private async Task CreateUserBasketItem(UserBasket userBasket, CreateUserBasketDto userBasketDto)
         {
             var item = await _basketReadRepository.GetUserBasketItem(userBasket.Id, userBasketDto.Slug);
 
             _itemBuilder.ConvertToUserBasketItem(item, userBasketDto);
 
             await _basketWriteRepository.AddUserBasketItem(item);
+        }
+
+        private UserBasketDto CreateUserBasketDto(UserBasket userBasket)
+        {
+            var UserBasketItemDtos = new List<UserBasketItemDto>();
+
+            foreach (var item in userBasket.UserBasketItems)
+            {
+                UserBasketItemDtos.Add(new UserBasketItemDto()
+                {
+                    Discount = item.Discount,
+                    LatestPrice = item.LatestPrice,
+                    Price = item.Price,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    Slug = item.Slug,
+                    UserBasketId = item.UserBasketId,
+                    UserChangedSeen = item.UserChangedSeen
+                });
+            }
+
+            var userBasketDto = new UserBasketDto()
+            {
+                UserId = userBasket.UserId,
+                Amount = userBasket.Amount,
+                DeliveryPrice = userBasket.DeliveryPrice,
+                TotalAmount = userBasket.TotalAmount,
+                VatAmount = userBasket.VatAmount,
+                UserBasketItems = UserBasketItemDtos,
+            };
+
+            return userBasketDto;
         }
 
         #endregion Private Methods

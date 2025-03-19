@@ -4,7 +4,9 @@ namespace Basket.Host.Services.Contracts
 {
     public interface IBasketService
     {
-        Task<bool> CreateBasket(UserBasketDto userBasketDto);
+        Task<UserBasketDto> GetBasket(int UserId);
+
+        Task<bool> CreateBasket(CreateUserBasketDto userBasketDto);
 
         Task DecreaseQuantity(DecreaseQuantityDto remoteBasketItemDto);
 

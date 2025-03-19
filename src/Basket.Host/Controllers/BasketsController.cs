@@ -1,10 +1,10 @@
-﻿using Basket.Host.Features.Basket.CreateBasket;
-using Basket.Host.Features.Basket.IncreaseQuantity;
-using Basket.Host.Features.Basket.RemoteBasket;
-using Basket.Host.Features.Basket.RemoteBasketItem;
+﻿using Basket.Host.Features.Basket.Commands.CreateBasket;
+using Basket.Host.Features.Basket.Commands.DecreaseQuantity;
+using Basket.Host.Features.Basket.Commands.IncreaseQuantity;
+using Basket.Host.Features.Basket.Commands.RemoteBasket;
+using Basket.Host.Features.Basket.Queries.GetBasket;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Basket.Host.Controllers
 {
@@ -21,6 +21,18 @@ namespace Basket.Host.Controllers
             await _mediator.Send(command);
 
             return Created();
+        }
+
+        [HttpGet("api/v1/baskets")]
+        public async Task<IActionResult> GetBasket()
+        {
+            int userId = 123;//Get From Token
+
+            var query = new GetBasketQuery(userId);
+
+            var basket = await _mediator.Send(query);
+
+            return Ok(basket);
         }
 
         [HttpDelete("api/v1/baskets")]

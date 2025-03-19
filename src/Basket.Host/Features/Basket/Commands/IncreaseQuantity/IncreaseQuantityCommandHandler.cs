@@ -2,7 +2,7 @@
 using Basket.Host.Services.Contracts;
 using MediatR;
 
-namespace Basket.Host.Features.Basket.IncreaseQuantity
+namespace Basket.Host.Features.Basket.Commands.IncreaseQuantity
 {
     public class IncreaseQuantityCommandHandler : IRequestHandler<IncreaseQuantityCommand, Unit>
     {

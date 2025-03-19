@@ -5,8 +5,8 @@ namespace Basket.Host.Builder.Contracts
 {
     public interface IItemBuilder
     {
-        UserBasket WithOutExistingUserBasket(UserBasketDto userBasketDto);
-        UserBasket WithExistingUserBasket(UserBasket userBasket, UserBasketDto userBasketDto);
-        void ConvertToUserBasketItem(UserBasketItem userBasketItem, UserBasketDto userBasketDto);
+        UserBasket WithOutExistingUserBasket(CreateUserBasketDto userBasketDto);
+        UserBasket WithExistingUserBasket(UserBasket userBasket, CreateUserBasketDto userBasketDto);
+        void ConvertToUserBasketItem(UserBasketItem userBasketItem, CreateUserBasketDto userBasketDto);
     }
 }
