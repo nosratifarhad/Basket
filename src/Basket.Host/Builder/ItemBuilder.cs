@@ -37,11 +37,11 @@ namespace Basket.Host.Builder
             return userBasket;
         }
 
-        public void ConvertToUserBasketProductItem(UserBasketProductItem userBasketProductItem, UserBasketDto userBasketDto)
+        public void ConvertToUserBasketItem(UserBasketItem userBasketItem, UserBasketDto userBasketDto)
         {
-            if (userBasketProductItem is null)
+            if (userBasketItem is null)
             {
-                userBasketProductItem = new UserBasketProductItem
+                userBasketItem = new UserBasketItem
                 {
                     Slug = userBasketDto.Slug,
                     Price = userBasketDto.Price,
@@ -51,7 +51,7 @@ namespace Basket.Host.Builder
             }
             else
             {
-                userBasketProductItem.Quantity++;
+                userBasketItem.Quantity++;
             }
         }
     }

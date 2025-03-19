@@ -8,12 +8,17 @@ namespace Basket.Host.Services
 {
     public class BasketService : IBasketService
     {
-        private readonly IBasketRepository _basketRepository;
+        private readonly IBasketWriteRepository _basketWriteRepository;
+        private readonly IBasketReadRepository _basketReadRepository;
         private readonly IItemBuilder _itemBuilder;
 
-        public BasketService(IBasketRepository basketRepository, IItemBuilder itemBuilder)
+        public BasketService(
+            IBasketWriteRepository basketWriteRepository,
+            IBasketReadRepository basketReadRepository,
+            IItemBuilder itemBuilder)
         {
-            _basketRepository = basketRepository;
+            _basketWriteRepository = basketWriteRepository;
+            _basketReadRepository = basketReadRepository;
             _itemBuilder = itemBuilder;
         }
 
@@ -23,16 +28,60 @@ namespace Basket.Host.Services
 
             var userBasket = await CreateUserBasket(userBasketDto);
 
-            await CreateUserBasketProductItem(userBasket, userBasketDto);
+            await CreateUserBasketItem(userBasket, userBasketDto);
 
             //close tansaction
 
             return true;
         }
 
+        public async Task DecreaseQuantity(DecreaseQuantityDto remoteBasketItemDto)
+        {
+            var userBasketItem =
+                await _basketReadRepository.GetUserBasketItem(remoteBasketItemDto.BasketItemId);
+            if (userBasketItem == null)
+                throw new Exception("User Basket Item Not Found.");
+
+            userBasketItem.Quantity--;
+
+            if (userBasketItem.Quantity == 0)
+            {
+                userBasketItem.IsDelete = true;
+                userBasketItem.DeleteAt = DateTime.Now;
+            }
+
+            await _basketWriteRepository.UpdateBasketItem(userBasketItem);
+        }
+
+        public async Task IncreaseQuantity(IncreaseQuantityDto increaseQuantityDto)
+        {
+            var userBasketItem =
+                    await _basketReadRepository.GetUserBasketItem(increaseQuantityDto.BasketItemId);
+            if (userBasketItem == null)
+                throw new Exception("User Basket Item Not Found.");
+
+            userBasketItem.Quantity++;
+
+            await _basketWriteRepository.UpdateBasketItem(userBasketItem);
+        }
+
+        public async Task RemoteBasket(RemoteBasketDto remoteBasketDto)
+        {
+            var userBasket = await _basketReadRepository.GetUserBasket(remoteBasketDto.UserId);
+            if (userBasket == null)
+                throw new Exception("User Basket Not Found.");
+
+            userBasket.IsDelete = true;
+            userBasket.DeleteAt = DateTime.Now;
+
+            await _basketWriteRepository.UpdateBasket(userBasket);
+        }
+
+        #region Private Methods
+
         private async Task<UserBasket> CreateUserBasket(UserBasketDto userBasketDto)
         {
-            var userBasket = await _basketRepository.GetUserBasket(userBasketDto.UserId);
+            var userBasket = await _basketReadRepository.GetUserBasket(userBasketDto.UserId);
 
             if (userBasket is null)
             {
@@ -40,26 +89,27 @@ namespace Basket.Host.Services
 
                 userBasket.UserId = userBasketDto.UserId;
 
-                userBasket.Id = await _basketRepository.AddBasket(userBasket);
+                userBasket.Id = await _basketWriteRepository.AddBasket(userBasket);
             }
             else
             {
                 userBasket = _itemBuilder.WithExistingUserBasket(userBasket, userBasketDto);
 
-                await _basketRepository.UpdateBasket(userBasket);
+                await _basketWriteRepository.UpdateBasket(userBasket);
             }
 
             return userBasket;
         }
 
-        private async Task CreateUserBasketProductItem(UserBasket userBasket, UserBasketDto userBasketDto)
+        private async Task CreateUserBasketItem(UserBasket userBasket, UserBasketDto userBasketDto)
         {
-            var item = await _basketRepository.GetUserBasketProductItem(userBasket.Id, userBasketDto.Slug);
+            var item = await _basketReadRepository.GetUserBasketItem(userBasket.Id, userBasketDto.Slug);
 
-            _itemBuilder.ConvertToUserBasketProductItem(item, userBasketDto);
+            _itemBuilder.ConvertToUserBasketItem(item, userBasketDto);
 
-            await _basketRepository.AddUserBasketProductItem(item);
+            await _basketWriteRepository.AddUserBasketItem(item);
         }
 
+        #endregion Private Methods
     }
 }

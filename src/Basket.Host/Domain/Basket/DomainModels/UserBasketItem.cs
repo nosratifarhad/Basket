@@ -1,6 +1,6 @@
 ﻿namespace Basket.Host.Domain.Basket.DomainModels
 {
-    public class UserBasketProductItem
+    public class UserBasketItem
     {
         public int Id { get; set; }
 
@@ -20,5 +20,10 @@
 
         public bool PriceChanged => LatestPrice.HasValue &&
                             LatestPrice.Value != Price;
+
+        public DateTime CreateAt { get; set; }
+        public DateTime UpdateAt { get; set; }
+        public DateTime DeleteAt { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

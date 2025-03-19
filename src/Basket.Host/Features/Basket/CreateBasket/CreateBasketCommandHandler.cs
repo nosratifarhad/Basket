@@ -2,7 +2,7 @@
 using Basket.Host.Dto;
 using Basket.Host.Services.Contracts;
 
-namespace Basket.Host.Features.Basket
+namespace Basket.Host.Features.Basket.CreateBasket
 {
     public class CreateBasketCommandHandler : IRequestHandler<CreateBasketCommand, bool>
     {

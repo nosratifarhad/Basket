@@ -8,5 +8,9 @@
         public decimal TotalAmount { get; set; }
         public decimal DeliveryPrice { get; set; }
         public decimal VatAmount { get; set; }
+        public DateTime CreateAt { get; set; }
+        public DateTime UpdateAt { get; set; }
+        public DateTime DeleteAt { get; set; }
+        public bool IsDelete { get; set; }
     }
 }
