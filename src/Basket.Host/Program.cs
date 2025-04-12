@@ -1,3 +1,4 @@
+using Basket.Host.Behaviors;
 using Basket.Host.Extensions;
 using MediatR;
 
@@ -11,6 +12,8 @@ builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
 var app = builder.Build();
 
